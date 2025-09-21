@@ -19,104 +19,132 @@
 #include <string.h>
 
 // external definitions for mmul's
-extern void square_dgemm(int, double*, double*, double*);
-extern void square_dgemm_blocked(int, int, double*, double*, double*) ;
-extern const char* dgemm_desc;
+extern void square_dgemm(int, double *, double *, double *);
+extern void square_dgemm_blocked(int, int, double *, double *, double *);
+extern const char *dgemm_desc;
 
-void reference_dgemm(int n, double alpha, double* A, double* B, double* C) {
-    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, n, n, n, alpha, A, n, B, n, 1., C, n);
+void reference_dgemm(int n, double alpha, double *A, double *B, double *C)
+{
+  cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, n, n, n, alpha, A, n, B, n, 1., C, n);
 }
 
-void fill(double* p, int n) {
-    static std::random_device rd;
-    static std::default_random_engine gen(rd());
-    static std::uniform_real_distribution<> dis(-1.0, 1.0);
-    for (int i = 0; i < n; ++i)
-        p[i] = 2 * dis(gen) - 1;
+void fill(double *p, int n)
+{
+  static std::random_device rd;
+  static std::default_random_engine gen(rd());
+  static std::uniform_real_distribution<> dis(-1.0, 1.0);
+  for (int i = 0; i < n; ++i)
+    p[i] = 2 * dis(gen) - 1;
 }
 
 bool check_accuracy(double *A, double *Anot, int nvalues)
 {
   double eps = 1e-5;
-  for (size_t i = 0; i < nvalues; i++) 
+  for (size_t i = 0; i < nvalues; i++)
   {
-    if (fabsf(A[i] - Anot[i]) > eps) {
-       return false;
+    if (fabsf(A[i] - Anot[i]) > eps)
+    {
+      return false;
     }
   }
   return true;
 }
 
-
 /* The benchmarking program */
-int main(int argc, char** argv) 
+int main(int argc, char **argv)
 {
-    std::cout << "Description:\t" << dgemm_desc << std::endl << std::endl;
+  std::cout << "Description:\t" << dgemm_desc << std::endl
+            << std::endl;
 
-    std::cout << std::fixed << std::setprecision(2);
+  std::cout << std::fixed << std::setprecision(2);
 
-    // 9/14/2024: run the 1st problem size twice: the first execution
-    // "conditions" BLAS (eg, dll loading), so ignore the runtime from
-    // the first problem size, and start using the timings from the 
-    // second problem size and beyond.
-    std::vector<int> test_sizes{64, 64, 128, 256, 512, 1024, 2048};
-    std::vector<int> block_sizes{2, 16, 32, 64};
+  // 9/14/2024: run the 1st problem size twice: the first execution
+  // "conditions" BLAS (eg, dll loading), so ignore the runtime from
+  // the first problem size, and start using the timings from the
+  // second problem size and beyond.
+  std::vector<int> test_sizes{64, 64, 128, 256, 512, 1024, 2048};
+  std::vector<int> block_sizes{2, 16, 32, 64};
 
-    int n_problems = test_sizes.size();
+  int n_problems = test_sizes.size();
 
-    /* For each test size */
-    for (int n : test_sizes) 
+  /* For each test size */
+  for (int n : test_sizes)
+  {
+    printf("Working on problem size N=%d \n", n);
+
+#ifdef BLOCKED
+    printf("Blocked DGEMM \n");
+    for (int b : block_sizes)
     {
-        printf("Working on problem size N=%d \n", n);
-
-#ifdef BLOCKED
-        printf("Blocked DGEMM \n");
-        for (int b : block_sizes)
-        {
 #endif
 
-           // allocate memory for 6 NxN matrics
-           std::vector<double> buf(6 * n * n);
-           double* A = buf.data() + 0;
-           double* B = A + n * n;
-           double* C = B + n * n;
-           double* Acopy = C + n * n;
-           double* Bcopy = Acopy + n * n;
-           double* Ccopy = Bcopy + n * n;
+      // allocate memory for 6 NxN matrics
+      std::vector<double> buf(6 * n * n);
+      double *A = buf.data() + 0;
+      double *B = A + n * n;
+      double *C = B + n * n;
+      double *Acopy = C + n * n;
+      double *Bcopy = Acopy + n * n;
+      double *Ccopy = Bcopy + n * n;
 
-           // load up matrics with some random numbers
-           fill(A, n * n);
-           fill(B, n * n);
-           fill(C, n * n);
+      // load up matrics with some random numbers
+      fill(A, n * n);
+      fill(B, n * n);
+      fill(C, n * n);
 
-           // make copies of A, B, C for use in verification of results
-           memcpy((void *)Acopy, (const void *)A, sizeof(double)*n*n);
-           memcpy((void *)Bcopy, (const void *)B, sizeof(double)*n*n);
-           memcpy((void *)Ccopy, (const void *)C, sizeof(double)*n*n);
+      // make copies of A, B, C for use in verification of results
+      memcpy((void *)Acopy, (const void *)A, sizeof(double) * n * n);
+      memcpy((void *)Bcopy, (const void *)B, sizeof(double) * n * n);
+      memcpy((void *)Ccopy, (const void *)C, sizeof(double) * n * n);
 
-           // insert timer code here
+      // insert timer code here
+      std::chrono::time_point<std::chrono::high_resolution_clock> start_time = std::chrono::high_resolution_clock::now();
 
 #ifdef BLOCKED
-           square_dgemm_blocked(n, b, A, B, C); 
+      square_dgemm_blocked(n, b, A, B, C);
 #else
-           square_dgemm(n, A, B, C); 
+    square_dgemm(n, A, B, C);
 #endif
 
-           // insert timer code here
+      // insert timer code here
+      // end - start
+      std::chrono::time_point<std::chrono::high_resolution_clock> end_time = std::chrono::high_resolution_clock::now();
+      std::chrono::duration<double> elapsed = end_time - start_time;
+      // std::cout << " Elapsed time is : " << std::fixed << std::setprecision(6) << elapsed.count() << " " << std::endl;
 
-           reference_dgemm(n, 1.0 , Acopy, Bcopy, Ccopy);
-
-           // compare your C with that computed by BLAS
-           if (check_accuracy(Ccopy, C, n*n) == false)
-              printf(" Error: your answer is not the same as that computed by BLAS. \n");
+      // compute "performance" in Gflop/s
+      double secs = elapsed.count();
 
 #ifdef BLOCKED
-        } // end loop over block sizes
+      // print out results
+      std::cout << "N=" << n << " B=" << b
+                << " elapsed(s)=" << std::fixed << std::setprecision(6) << secs << '\n';
+#else
+    std::cout << "N=" << n
+              << " elapsed(s)=" << std::fixed << std::setprecision(6) << secs << '\n';
 #endif
 
-    } // end loop over problem sizes
+      // CSV output: version, N, block size, time
+#ifdef BLOCKED
+      std::cout << "CSV,blocked," << n << "," << b << ","
+                << std::fixed << std::setprecision(6) << secs << '\n';
+#else
 
-    return 0;
+    std::cout << "CSV," << dgemm_desc << "," << n << ",0,"
+              << std::fixed << std::setprecision(6) << secs << '\n';
+    reference_dgemm(n, 1.0, Acopy, Bcopy, Ccopy);
+
+    // compare your C with that computed by BLAS
+    if (check_accuracy(Ccopy, C, n * n) == false)
+      printf(" Error: your answer is not the same as that computed by BLAS. \n");
+
+#ifdef BLOCKED
+  } // end loop over block sizes
+#endif
+
+} // end loop over problem sizes
+
+return 0;
 }
 
 // EOF
