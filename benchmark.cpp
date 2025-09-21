@@ -132,19 +132,21 @@ int main(int argc, char **argv)
 
     std::cout << "CSV," << dgemm_desc << "," << n << ",0,"
               << std::fixed << std::setprecision(6) << secs << '\n';
-    reference_dgemm(n, 1.0, Acopy, Bcopy, Ccopy);
-
-    // compare your C with that computed by BLAS
-    if (check_accuracy(Ccopy, C, n * n) == false)
-      printf(" Error: your answer is not the same as that computed by BLAS. \n");
-
-#ifdef BLOCKED
-  } // end loop over block sizes
 #endif
 
-} // end loop over problem sizes
+      reference_dgemm(n, 1.0, Acopy, Bcopy, Ccopy);
 
-return 0;
+      // compare your C with that computed by BLAS
+      if (check_accuracy(Ccopy, C, n * n) == false)
+        printf(" Error: your answer is not the same as that computed by BLAS. \n");
+
+#ifdef BLOCKED
+    } // end loop over block sizes
+#endif
+
+  } // end loop over problem sizes
+
+  return 0;
 }
 
 // EOF
