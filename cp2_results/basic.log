@@ -1,0 +1,23 @@
+Description:	Basic implementation, three-loop dgemm.
+
+Working on problem size N=64 
+N=64 elapsed(s)=0.000167
+CSV,Basic implementation, three-loop dgemm.,64,0,0.000167
+Working on problem size N=64 
+N=64 elapsed(s)=0.000192
+CSV,Basic implementation, three-loop dgemm.,64,0,0.000192
+Working on problem size N=128 
+N=128 elapsed(s)=0.002714
+CSV,Basic implementation, three-loop dgemm.,128,0,0.002714
+Working on problem size N=256 
+N=256 elapsed(s)=0.036250
+CSV,Basic implementation, three-loop dgemm.,256,0,0.036250
+Working on problem size N=512 
+N=512 elapsed(s)=1.006021
+CSV,Basic implementation, three-loop dgemm.,512,0,1.006021
+Working on problem size N=1024 
+N=1024 elapsed(s)=9.969517
+CSV,Basic implementation, three-loop dgemm.,1024,0,9.969517
+Working on problem size N=2048 
+N=2048 elapsed(s)=283.167269
+CSV,Basic implementation, three-loop dgemm.,2048,0,283.167269

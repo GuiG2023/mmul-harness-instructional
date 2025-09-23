@@ -1,0 +1,41 @@
+CSV,Basic implementation, three-loop dgemm.,64,0,0.000167
+CSV,Basic implementation, three-loop dgemm.,64,0,0.000192
+CSV,Basic implementation, three-loop dgemm.,128,0,0.002714
+CSV,Basic implementation, three-loop dgemm.,256,0,0.036250
+CSV,Basic implementation, three-loop dgemm.,512,0,1.006021
+CSV,Basic implementation, three-loop dgemm.,1024,0,9.969517
+CSV,Basic implementation, three-loop dgemm.,2048,0,283.167269
+CSV,blocked,64,2,0.000779
+CSV,blocked,64,16,0.000130
+CSV,blocked,64,32,0.000140
+CSV,blocked,64,64,0.000212
+CSV,blocked,64,2,0.000785
+CSV,blocked,64,16,0.000113
+CSV,blocked,64,32,0.000133
+CSV,blocked,64,64,0.000156
+CSV,blocked,128,2,0.005931
+CSV,blocked,128,16,0.000921
+CSV,blocked,128,32,0.000951
+CSV,blocked,128,64,0.001261
+CSV,blocked,256,2,0.048082
+CSV,blocked,256,16,0.007269
+CSV,blocked,256,32,0.007660
+CSV,blocked,256,64,0.009804
+CSV,blocked,512,2,0.383855
+CSV,blocked,512,16,0.058130
+CSV,blocked,512,32,0.060811
+CSV,blocked,512,64,0.080505
+CSV,blocked,1024,2,3.034847
+CSV,blocked,1024,16,0.468664
+CSV,blocked,1024,32,0.486792
+CSV,blocked,1024,64,0.616982
+CSV,blocked,2048,2,22.949929
+CSV,blocked,2048,16,3.904578
+CSV,blocked,2048,32,4.008689
+CSV,blocked,2048,64,4.971510
+CSV,Reference dgemm.,64,0,0.000014
+CSV,Reference dgemm.,128,0,0.000150
+CSV,Reference dgemm.,256,0,0.000860
+CSV,Reference dgemm.,512,0,0.005423
+CSV,Reference dgemm.,1024,0,0.042622
+CSV,Reference dgemm.,2048,0,0.333287

@@ -1,0 +1,72 @@
+Description:	Blocked dgemm.
+
+Working on problem size N=64 
+Blocked DGEMM 
+N=64 B=2 elapsed(s)=0.000779
+CSV,blocked,64,2,0.000779
+N=64 B=16 elapsed(s)=0.000130
+CSV,blocked,64,16,0.000130
+N=64 B=32 elapsed(s)=0.000140
+CSV,blocked,64,32,0.000140
+N=64 B=64 elapsed(s)=0.000212
+CSV,blocked,64,64,0.000212
+Working on problem size N=64 
+Blocked DGEMM 
+N=64 B=2 elapsed(s)=0.000785
+CSV,blocked,64,2,0.000785
+N=64 B=16 elapsed(s)=0.000113
+CSV,blocked,64,16,0.000113
+N=64 B=32 elapsed(s)=0.000133
+CSV,blocked,64,32,0.000133
+N=64 B=64 elapsed(s)=0.000156
+CSV,blocked,64,64,0.000156
+Working on problem size N=128 
+Blocked DGEMM 
+N=128 B=2 elapsed(s)=0.005931
+CSV,blocked,128,2,0.005931
+N=128 B=16 elapsed(s)=0.000921
+CSV,blocked,128,16,0.000921
+N=128 B=32 elapsed(s)=0.000951
+CSV,blocked,128,32,0.000951
+N=128 B=64 elapsed(s)=0.001261
+CSV,blocked,128,64,0.001261
+Working on problem size N=256 
+Blocked DGEMM 
+N=256 B=2 elapsed(s)=0.048082
+CSV,blocked,256,2,0.048082
+N=256 B=16 elapsed(s)=0.007269
+CSV,blocked,256,16,0.007269
+N=256 B=32 elapsed(s)=0.007660
+CSV,blocked,256,32,0.007660
+N=256 B=64 elapsed(s)=0.009804
+CSV,blocked,256,64,0.009804
+Working on problem size N=512 
+Blocked DGEMM 
+N=512 B=2 elapsed(s)=0.383855
+CSV,blocked,512,2,0.383855
+N=512 B=16 elapsed(s)=0.058130
+CSV,blocked,512,16,0.058130
+N=512 B=32 elapsed(s)=0.060811
+CSV,blocked,512,32,0.060811
+N=512 B=64 elapsed(s)=0.080505
+CSV,blocked,512,64,0.080505
+Working on problem size N=1024 
+Blocked DGEMM 
+N=1024 B=2 elapsed(s)=3.034847
+CSV,blocked,1024,2,3.034847
+N=1024 B=16 elapsed(s)=0.468664
+CSV,blocked,1024,16,0.468664
+N=1024 B=32 elapsed(s)=0.486792
+CSV,blocked,1024,32,0.486792
+N=1024 B=64 elapsed(s)=0.616982
+CSV,blocked,1024,64,0.616982
+Working on problem size N=2048 
+Blocked DGEMM 
+N=2048 B=2 elapsed(s)=22.949929
+CSV,blocked,2048,2,22.949929
+N=2048 B=16 elapsed(s)=3.904578
+CSV,blocked,2048,16,3.904578
+N=2048 B=32 elapsed(s)=4.008689
+CSV,blocked,2048,32,4.008689
+N=2048 B=64 elapsed(s)=4.971510
+CSV,blocked,2048,64,4.971510

@@ -1,0 +1,23 @@
+Description:	Reference dgemm.
+
+Working on problem size N=64 
+N=64 elapsed(s)=0.000084
+CSV,Reference dgemm.,64,0,0.000084
+Working on problem size N=64 
+N=64 elapsed(s)=0.000014
+CSV,Reference dgemm.,64,0,0.000014
+Working on problem size N=128 
+N=128 elapsed(s)=0.000150
+CSV,Reference dgemm.,128,0,0.000150
+Working on problem size N=256 
+N=256 elapsed(s)=0.000860
+CSV,Reference dgemm.,256,0,0.000860
+Working on problem size N=512 
+N=512 elapsed(s)=0.005423
+CSV,Reference dgemm.,512,0,0.005423
+Working on problem size N=1024 
+N=1024 elapsed(s)=0.042622
+CSV,Reference dgemm.,1024,0,0.042622
+Working on problem size N=2048 
+N=2048 elapsed(s)=0.333287
+CSV,Reference dgemm.,2048,0,0.333287
